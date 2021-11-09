@@ -9,10 +9,10 @@ services:
     volumes:
       - charts:/charts
     labels:
+      traefik.http.services.chartmuseum.loadbalancer.server.port: 8080
       traefik.http.routers.chartmuseum.rule: 'Host(`${CHART_DOMAIN}`)'
       traefik.http.routers.chartmuseum.tls: 'true'
       traefik.http.routers.chartmuseum.tls.certresolver: 'default'
       traefik.enable: 'true'
-      traefik.port: 8080
 volumes:
   charts:
