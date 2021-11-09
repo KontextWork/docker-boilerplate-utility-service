@@ -2,10 +2,14 @@ version: '3'
 
 services:
   chartmuseum:
-    image: chartmuseum/chartmuseum
+    restart: always
+    image: ghcr.io/helm/chartmuseum:v0.13.1
     environment:
       STORAGE: local
       STORAGE_LOCAL_ROOTDIR: /charts
+      BASIC_AUTH_USER:
+      BASIC_AUTH_PASS:
+      AUTH_ANONYMOUS_GET:
     volumes:
       - charts:/charts
     labels:
