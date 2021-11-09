@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  registry-cache1:
+    restart: always
+    image: registry
+    environment:
+      REGISTRY_PROXY_REMOTEURL: '${UPSTREAM_REGISTRY:-https://registry-1.docker.io}'
+      REGISTRY_PROXY_USERNAME: '${USERNAME:-}'
+      REGISTRY_PROXY_PASSWORD: '${PASSWORD:-}'
+    labels:
+      traefik.http.services.registry1.loadbalancer.server.port: 5000
+      traefik.http.routers.registry1.rule: 'Host(`${CACHE_DOMAIN1}`)'
+      traefik.http.routers.registry1.tls: 'true'
+      traefik.http.routers.registry1.tls.certresolver: 'default'
+      traefik.enable: 'true'

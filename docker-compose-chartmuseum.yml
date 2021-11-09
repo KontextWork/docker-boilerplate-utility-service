@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  chartmuseum:
+    image: chartmuseum/chartmuseum
+    environment:
+      STORAGE: local
+      STORAGE_LOCAL_ROOTDIR: /charts
+    volumes:
+      - charts:/charts
+    labels:
+      traefik.http.routers.chartmuseum.rule: 'Host(`${CHART_DOMAIN}`)'
+      traefik.http.routers.chartmuseum.tls: 'true'
+      traefik.http.routers.chartmuseum.tls.certresolver: 'default'
+      traefik.enable: 'true'
+
+volumes:
+  charts:
