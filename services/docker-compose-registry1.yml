@@ -5,9 +5,9 @@ services:
     restart: always
     image: registry
     environment:
-      REGISTRY_PROXY_REMOTEURL: '${UPSTREAM_REGISTRY:-https://registry-1.docker.io}'
-      REGISTRY_PROXY_USERNAME: '${USERNAME:-}'
-      REGISTRY_PROXY_PASSWORD: '${PASSWORD:-}'
+      REGISTRY_PROXY_REMOTEURL: '${UPSTREAM1_REGISTRY:-https://registry-1.docker.io}'
+      REGISTRY_PROXY_USERNAME: '${USERNAME1:-}'
+      REGISTRY_PROXY_PASSWORD: '${PASSWORD1:-}'
     labels:
       traefik.http.services.registry1.loadbalancer.server.port: 5000
       traefik.http.routers.registry1.rule: 'Host(`${CACHE_DOMAIN1}`)'
