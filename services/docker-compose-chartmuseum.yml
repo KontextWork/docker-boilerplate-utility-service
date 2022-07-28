@@ -3,7 +3,7 @@ version: '3'
 services:
   chartmuseum:
     restart: always
-    image: ghcr.io/helm/chartmuseum:v0.13.1
+    image: ghcr.io/helm/chartmuseum:v0.15.0
     environment:
       STORAGE: local
       STORAGE_LOCAL_ROOTDIR: /charts
