@@ -1,26 +1,23 @@
-version: '3'
-
 services:
   traefik:
     restart: always
-    image: eugenmayer/traefik:2.x
+    image: traefik:3.6
     ports:
-      - 80:8080
-      - 443:8443
+      - 80:80
+      - 443:443
       - 8000:8000
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedByDefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesResolvers.letsencrypt.acme.email=ssl@kontextwork.de"
+      - "--certificatesResolvers.letsencrypt.acme.storage=acme.json"
+      - "--certificatesResolvers.letsencrypt.acme.dnsChallenge.provider=cloudflare"
+      - "--certificatesResolvers.letsencrypt.acme.dnsChallenge.resolvers=1.1.1.1:53"
     environment:
-      TRAEFIK_ACME_ENABLE: 'true'
-      TRAEFIK_ACME_CHALLENGE: 'dns'
-      TRAEFIK_ADMIN_SSL: 'false'
-      TRAEFIK_ADMIN_ENABLE: 'false'
-
-      TRAEFIK_ACME_CHALLENGE_DNS_PROVIDER: '${TRAEFIK_ACME_CHALLENGE_DNS_PROVIDER}'
-      TRAEFIK_ACME_CHALLENGE_DNS_CREDENTIALS: '${TRAEFIK_ACME_CHALLENGE_DNS_CREDENTIALS}'
-
-      ### basic provider setup
-      TRAEFIK_HTTPS_ENABLE: 'only'
-      TRAEFIK_DOCKER_ENABLE: 'true'
-      TRAEFIK_DOCKER_EXPOSEDBYDEFAULT: 'false'
+      CF_DNS_API_TOKEN: ${CF_API_TOKEN}
     volumes:
       - certs:/mnt/certs
       - filestorage:/mnt/filestorage
