@@ -15,7 +15,7 @@ services:
       - "--certificatesResolvers.letsencrypt.acme.email=ssl@kontextwork.de"
       - "--certificatesResolvers.letsencrypt.acme.storage=acme.json"
       - "--certificatesResolvers.letsencrypt.acme.dnsChallenge.provider=cloudflare"
-      - "--certificatesResolvers.letsencrypt.acme.dnsChallenge.resolvers=1.1.1.1:53"
+      - "--certificatesResolvers.letsencrypt.acme.dnsChallenge.resolvers=1.1.1.1:53,1.0.0.1:53"
     environment:
       CF_DNS_API_TOKEN: ${CF_API_TOKEN}
     volumes:
